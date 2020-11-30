@@ -16,3 +16,4 @@ Een overzichtelijke manier om alle games binnen steam te laten zien en gesorteer
 Instructies:
 Ctrl + Shift + F10 in Pycharm
 
+Yaser is pussydestroyer
