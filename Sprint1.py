@@ -1,7 +1,7 @@
 import requests
 from tkinter import ttk
+from tkinter import *
 import tkinter as tk
-
 
 def open_jsonfile():
     url = "https://raw.githubusercontent.com/tijmenjoppe/AnalyticalSkills-student/master/project/data/steam.json"
