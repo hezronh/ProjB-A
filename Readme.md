@@ -13,6 +13,12 @@ Een overzichtelijke manier om alle games binnen steam te laten zien en gesorteer
 
 
 Instructies:
-Ctrl + Shift + F10 in Pycharm
-
+Meest voorkomende genre: Toont de meest voorkomende genre
+Mediaan van de prijs: Toont de mediaan van de prijs
+Zoeken: Zoekt een game naam op (hoofdlettergevoelig)
+Update: Werkt de lijst met steam vrienden bij, als er iemand bij komt gaat er een lampje branden
+Game naam: Sorteert op game naam (A-Z)
+Prijs: Sorteert op prijs (0-100)
+Release datum: Sorteert op datum (1990-2021)
+Genres: Sorteert op genres (A-Z)
 
