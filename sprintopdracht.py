@@ -28,7 +28,6 @@ def printFriendInfo(ids):
 def printOnlineFriends(ids):
     useruri = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + tehapi + '&steamids=' + ids
     userget = requests.get(useruri).json()['response']
-
     onlineDict = {}
     global maxnamelen
     maxnamelen = 0
@@ -85,17 +84,22 @@ def mergeSort(lst, req):
         key = 2
     elif req == 4:      #genre
         key = 3
-
+    elif req == 5:
+        key = 4
     return mergeLists(leftList, rightList, key)
 
 
 def mergeLists(left, right, key):
     sortedSubList = []
     while left and right:
-        leftGame = left[0]
-        leftData = leftGame[key]
-        rightGame = right[0]
-        rightData = rightGame[key]
+        if key == 4:
+            leftData = left[0]
+            rightData = right[0]
+        else:
+            leftGame = left[0]
+            leftData = leftGame[key]
+            rightGame = right[0]
+            rightData = rightGame[key]
         if leftData <= rightData:
             sortedSubList.append(left[0])
             del left[0]
@@ -113,6 +117,22 @@ def open_jsonfile():
     r = requests.get(url)
     fileData = r.json()
     return fileData
+
+def median_price(lst):
+    lstSorted = mergeSort(lst, 5)
+    lenLst = len(lstSorted)
+    isEven = False
+    if (lenLst % 2) == 0:
+        isEven = True
+    if isEven:
+        midpoint1 = (lenLst // 2)
+        midpoint2 = (lenLst // 2) + 1
+        median = float((lstSorted[midpoint1] + lstSorted[midpoint2]) / 2)
+        return median
+    else:
+        midpoint = int((lenLst / 2) + 1)
+        median = lstSorted[midpoint]
+        return median
 
 def tkinter():
     dataList = sorted_data()
@@ -133,6 +153,13 @@ def tkinter():
         priceList.append(price)
         dateList.append(date)
         genreList.append(genre)
+    meest_volkomende_genres = []
+    for x in genreList:
+        genres = x.split(';')
+        for a in genres:
+            meest_volkomende_genres.append(a)
+    def meest_voorkomende(List):
+        return max(set(List), key=List.count)
     def naam():
         nameList = []
         priceList = []
@@ -280,10 +307,18 @@ def tkinter():
                 time.sleep(2.0)
                 GPIO.output(18, GPIO.LOW)
                 time.sleep(2.0)
-    btn2 = Button(wrapper2, text="Update", command=update)
-    btn2.pack(side=tk.RIGHT)
     string = StringVar(root)
     string.set("Select")
+    def knopje_mediaan():
+        messagebox.showinfo("Mediaan", 'De mediaan is: ' + str(median_price(priceList)))
+    def knopje_genre():
+        messagebox.showinfo("Meest volkomende Genre", "De meest volkomende genre is: " + str(meest_voorkomende(meest_volkomende_genres)))
+    knopje = Button(wrapper1, text="Mediaan van de prijs", command=knopje_mediaan)
+    knopje.pack(side=tk.RIGHT)
+    knopje2 = Button(wrapper1, text="Meest voorkomende genre", command=knopje_genre)
+    knopje2.pack(side=tk.RIGHT)
+    btn2 = Button(wrapper2, text="Update", command=update)
+    btn2.pack(side=tk.RIGHT)
     s = ttk.Style()
     s.theme_use("clam")
     second_frame.configure(background="#264055")
